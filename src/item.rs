@@ -174,9 +174,9 @@ pub struct ToolItem {
     block_tag: String,
     tier: String,
     name: String,
-    id: i64,
+    id: usize,
     #[serde(rename = "maxStackSize")]
-    max_stack_size: i64,
+    max_stack_size: u8,
     #[serde(rename = "creativeTab")]
     #[cfg_attr(feature = "tabled", tabled(skip))]
 

@@ -71,7 +71,7 @@ pub struct BlockProperties {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[cfg_attr(feature = "tabled", derive(tabled::Tabled))]
 pub struct Block {
-    pub id: i64,
+    pub id: usize,
     pub name: String,
     #[cfg_attr(feature = "tabled",tabled(inline))]
     pub properties: BlockProperties,
