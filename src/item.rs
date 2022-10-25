@@ -11,12 +11,13 @@ pub struct Attribute {
 }
 
 pub type Attributes = Vec<Attribute>;
-
+pub type StackSize = u8;
+pub type ItemId = usize;
 pub trait ItemType {
     fn get_name(&self) -> &str;
 
-    fn get_id(&self) -> i64;
-    fn get_max_stack_size(&self) -> i64;
+    fn get_id(&self) -> ItemId;
+    fn get_max_stack_size(&self) -> StackSize;
     fn get_attributes(&self) -> &Attributes;
 }
 macro_rules! define_item_type {
@@ -33,11 +34,11 @@ macro_rules! define_item_type {
                 &self.$name
             }
             #[inline]
-            fn get_id(&self) -> i64 {
+            fn get_id(&self) -> ItemId {
                 self.$id
             }
             #[inline]
-            fn get_max_stack_size(&self) -> i64 {
+            fn get_max_stack_size(&self) -> StackSize {
                 self.$max_stack_size
             }
             #[inline]
@@ -69,7 +70,7 @@ impl ItemType for Item {
         }
     }
 
-    fn get_id(&self) -> i64 {
+    fn get_id(&self) -> ItemId {
         match self {
             Item::Generic(item) => item.get_id(),
             Item::Tool(item) => item.get_id(),
@@ -79,7 +80,7 @@ impl ItemType for Item {
         }
     }
 
-    fn get_max_stack_size(&self) -> i64 {
+    fn get_max_stack_size(&self) -> StackSize {
         match self {
             Item::Generic(item) => item.get_max_stack_size(),
             Item::Tool(item) => item.get_max_stack_size(),
@@ -104,9 +105,9 @@ impl ItemType for Item {
 #[cfg_attr(feature = "tabled", derive(tabled::Tabled))]
 pub struct GenericItem {
     name: String,
-    id: i64,
+    id: ItemId,
     #[serde(rename = "maxStackSize")]
-    max_stack_size: i64,
+    max_stack_size: StackSize,
     #[serde(rename = "creativeTab")]
     #[cfg_attr(feature = "tabled", tabled(skip))]
     creative_tab: Option<String>,
@@ -119,9 +120,9 @@ define_item_type!(GenericItem, name, id, max_stack_size, attributes);
 pub struct BlockItem {
     name: String,
     block: String,
-    id: i64,
+    id: ItemId,
     #[serde(rename = "maxStackSize")]
-    max_stack_size: i64,
+    max_stack_size: StackSize,
     #[serde(rename = "creativeTab")]
     #[cfg_attr(feature = "tabled", tabled(skip))]
     creative_tab: Option<String>,
@@ -134,9 +135,9 @@ define_item_type!(BlockItem, name, id, max_stack_size, attributes);
 pub struct TieredItem {
     tier: String,
     name: String,
-    id: i64,
+    id: ItemId,
     #[serde(rename = "maxStackSize")]
-    max_stack_size: i64,
+    max_stack_size: StackSize,
     #[serde(rename = "creativeTab")]
     #[cfg_attr(feature = "tabled", tabled(skip))]
 
@@ -153,9 +154,9 @@ pub struct ArmorItem {
     armor_slot: String,
     material: String,
     name: String,
-    id: i64,
+    id: ItemId,
     #[serde(rename = "maxStackSize")]
-    max_stack_size: i64,
+    max_stack_size: StackSize,
     #[serde(rename = "creativeTab")]
     #[cfg_attr(feature = "tabled", tabled(skip))]
 
@@ -174,15 +175,13 @@ pub struct ToolItem {
     block_tag: String,
     tier: String,
     name: String,
-    id: usize,
+    id: ItemId,
     #[serde(rename = "maxStackSize")]
-    max_stack_size: u8,
+    max_stack_size: StackSize,
     #[serde(rename = "creativeTab")]
     #[cfg_attr(feature = "tabled", tabled(skip))]
-
     creative_tab: Option<String>,
     #[cfg_attr(feature = "tabled", tabled(skip))]
-
     attributes: Attributes,
 }
 
