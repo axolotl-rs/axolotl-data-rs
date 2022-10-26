@@ -8,7 +8,8 @@ pub mod item;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Tag {
     pub name: String,
-    pub properties: Option<HashMap<String, Value>>,
+    #[serde(flatten)]
+    pub properties: HashMap<String, Value>,
 }
 
 #[cfg(test)]
