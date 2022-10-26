@@ -1,8 +1,7 @@
 use serde::{Deserialize, Serialize};
-#[cfg(feature = "tabled")]
-use tabled::Tabled;
+use crate::Tag;
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[cfg_attr(feature = "tabled", derive(tabled::Tabled))]
 pub struct SoundType {
     pub name: String,
     pub volume: f64,
@@ -20,7 +19,6 @@ pub struct SoundType {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[cfg_attr(feature = "tabled", derive(tabled::Tabled))]
 pub struct Material {
     pub name: String,
     pub color: i64,
@@ -39,7 +37,6 @@ pub struct Material {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-#[cfg_attr(feature = "tabled", derive(tabled::Tabled))]
 pub struct BlockProperties {
     pub material: String,
     #[serde(rename = "hasCollision")]
@@ -69,10 +66,9 @@ pub struct BlockProperties {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[cfg_attr(feature = "tabled", derive(tabled::Tabled))]
 pub struct Block {
     pub id: usize,
     pub name: String,
-    #[cfg_attr(feature = "tabled",tabled(inline))]
     pub properties: BlockProperties,
+    pub tags: Vec<Tag>
 }
