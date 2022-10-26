@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use std::collections::HashMap;
 
 use crate::Tag;
 
@@ -23,6 +22,5 @@ pub struct Item {
     #[serde(rename = "creativeTab")]
     pub creative_tab: Option<String>,
     pub attributes: Attributes,
-    pub tags: Vec<Tag>
+    pub tags: Vec<Tag>,
 }
-

@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::Tag;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct SoundType {
@@ -70,5 +70,5 @@ pub struct Block {
     pub id: usize,
     pub name: String,
     pub properties: BlockProperties,
-    pub tags: Vec<Tag>
+    pub tags: Vec<Tag>,
 }
